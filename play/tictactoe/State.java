@@ -7,7 +7,7 @@ public class State
     private String xName = "";
     private String oName = "";
     private int[][] board = new int[Constants.BOARD_SIZE][Constants.BOARD_SIZE];
-    public int getGmeSate(){
+    public int getGameState(){
         return this.gameState;
     }
 
@@ -48,25 +48,26 @@ public class State
     }
 
     public boolean isWinner() {
-        for(i=0; i=<whoseMove ++i; ){
-            if (board [i][o]== whoseMove || board[i][1] == whoseMove || board[i][2]== whoseMove){
+        for(int i=0; i<=Constants.BOARD_SIZE; ++i){
+            if (board [i][0]== whoseMove && board[i][1] == whoseMove && board[i][2]== whoseMove){
                 return true; 
             }
+           
         }
-
-        public boolean isTie() {
-
-            ui.printTieGame(state);
-            state.setGameState(Constants.GAME_OVER);
-
-            if (gameState == Constants.GAME_OVER) {
-                if (ui.startNewGame()) {
-
-                    state.setGameState(Constants.STANDBY);
-                } else {
-                    state.setGameState(Constants.QUIT_PROGRAM);
-                }
-            }
+        return false;
         }
-    }
+        
+
+    public boolean isTie() {
+      for(int r = 0 ; r<Constants.BOARD_SIZE; ++r) {
+          for(int c=0; c<Constants.BOARD_SIZE; ++c){
+              if (getBoardCell(r,c) == Constants.BLANK){
+                  return false;
+              }
+          }
+      }
+      return true;
+      }
+      
+}
 

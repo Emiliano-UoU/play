@@ -1,20 +1,20 @@
 package tictactoe;
+
 import java.util.Scanner;
 
 /**
  * UI class
  */
-public class UI
-{
+public class UI {
 
     Scanner scanner;
 
     public UI() {
-        scanner = new Scanner(System.in);         
+        scanner = new Scanner(System.in);
     }
-}
-  // Utility methods
-  // Utility methods
+
+    // Utility methods
+
     public String getXOrO(int whoseMove) {
         return (whoseMove == -1) ? "X" : "O";
     }
@@ -23,20 +23,21 @@ public class UI
         return (whoseMove == -1) ? xName : oName;
     }
 
-    public boolean isLegalMove(int state, int row, int col) {
+    public boolean isLegalMove(State state, int row, int col) {
         return 1 <= row && row <= Constants.BOARD_SIZE &&
-        1 <= col && col <= Constants.BOARD_SIZE &&
-        state.getBoardCell(row, col) == Constants.BLANK;
+                1 <= col && col <= Constants.BOARD_SIZE &&
+                state.getBoardCell(row, col) == Constants.BLANK;
     }
 
     // Prompt for input methods
+
     public String promptForName(int player) {
         System.out.printf(Constants.GET_PLAYER_NAME, player);
         return scanner.next();
     }
 
     public int getMoveRow(int whoseMove, String xName, String oName) {
-        int row;
+        int row = 0; // Initialize row to a value outside the valid range
         while (row <= 0 || row >= 4) {
             try {
                 System.out.printf(Constants.GET_ROW_MOVE, getXOrO(whoseMove), getPlayerName(whoseMove, xName, oName));
@@ -49,7 +50,7 @@ public class UI
     }
 
     public int getMoveCol(int whoseMove, String xName, String oName) {
-        int col;
+        int col = 0; // Initialize col to a value outside the valid range
         while (col <= 0 || col >= 4) {
             try {
                 System.out.printf(Constants.GET_COL_MOVE, getXOrO(whoseMove), getPlayerName(whoseMove, xName, oName));
@@ -64,10 +65,11 @@ public class UI
     public boolean startNewGame() {
         System.out.println(Constants.START_NEW_GAME);
         String yesOrNo = scanner.next();
-        return yesOrNo == "T";
+        return yesOrNo.equals("T");
     }
 
     // Printing text methods
+
     public void printWelcome() {
         System.out.println(Constants.TITLE);
     }
@@ -90,7 +92,7 @@ public class UI
 
     public void printMove(State state, int row, int col) {
         System.out.printf(Constants.PRINT_MOVE, getXOrO(state.getWhoseMove()), getPlayerName(state.getWhoseMove(), state.getXName(), state.getOName()), row, col);
-    } 
+    }
 
     public void printWinner(State state) {
         System.out.printf(Constants.WINNER, getXOrO(state.getWhoseMove()), getPlayerName(state.getWhoseMove(), state.getXName(), state.getOName()));
@@ -100,6 +102,3 @@ public class UI
         System.out.println(Constants.TIE_GAME);
     }
 }
-
-
-

@@ -7,8 +7,13 @@ public class EventLoop {
   State state = new State();
   UI ui = new UI();
   int row, col;
+  
+  public static void main(String[] args){
+      EventLoop eventLoop = new EventLoop();
+      eventLoop.run();
+  }
 
-  public void eventLoop() {
+  public void run() {
     while (state.getGameState() != Constants.QUIT_PROGRAM) {
       int gameState = state.getGameState();
       if (gameState == Constants.STANDBY) {
@@ -23,15 +28,15 @@ public class EventLoop {
         state.setGameState(Constants.GET_X_MOVE);
     
       } else if (gameState == Constants.GET_X_MOVE) {
-        row = ui.getMoveRow(state.getWhoseMove());
-        col = ui.getMoveCol(state.getWhoseMove());
+        row = ui.getMoveRow(state.getWhoseMove(), state.getXName(), state.getOName() );
+        col = ui.getMoveCol(state.getWhoseMove(), state.getXName(), state.getOName());
         if (ui.isLegalMove(state, row, col)) {
           state.setGameState(Constants.MAKE_MOVE);
         }
 
       } else if (gameState == Constants.GET_O_MOVE) {
-        row = ui.getMoveRow(state.getWhoseMove());
-        col = ui.getMoveCol(state.getWhoseMove());
+        row = ui.getMoveRow(state.getWhoseMove(), state.getXName(), state.getOName() );
+        col = ui.getMoveCol(state.getWhoseMove(), state.getXName(), state.getOName());
         if (ui.isLegalMove(state, row, col)) {
           state.setGameState(Constants.MAKE_MOVE);
         }
@@ -54,7 +59,7 @@ public class EventLoop {
 
       } else if (gameState == Constants.CHECK_IF_TIE) {
         if (state.isTie()) {
-          ui.printTie();
+          ui.printTieGame();
           state.setGameState(Constants.GAME_OVER);
         } else {
           state.setWhoseMove(state.getWhoseMove() * -1);
