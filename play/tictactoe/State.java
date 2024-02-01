@@ -48,26 +48,40 @@ public class State
     }
 
     public boolean isWinner() {
-        for(int i=0; i<=Constants.BOARD_SIZE; ++i){
-            if (board [i][0]== whoseMove && board[i][1] == whoseMove && board[i][2]== whoseMove){
+        for(int i=0; i<=Constants.BOARD_SIZE; ++i){ //for row 
+            int total= getBoardCell(i, 0) + getBoardCell(i, 1)+ getBoardCell(i, 2);
+
+            if (total == -3 || total == 3){
                 return true; 
             }
-           
+
         }
+        for(int col=0; col<=Constants.BOARD_SIZE; ++col){ //for row 
+            int total= getBoardCell(0, col) + getBoardCell(1, col)+ getBoardCell(2, col);
+
+            if (total == -3 || total == 3){
+                return true; 
+            }
+
+        }
+        int total =getBoardCell(0, 0) + getBoardCell(1, 1)+ getBoardCell(2, 2);
+        if (total == -3 || total == 3){
+                return true; 
+            }
+        int 
         return false;
-        }
-        
+    }
 
     public boolean isTie() {
-      for(int r = 0 ; r<Constants.BOARD_SIZE; ++r) {
-          for(int c=0; c<Constants.BOARD_SIZE; ++c){
-              if (getBoardCell(r,c) == Constants.BLANK){
-                  return false;
-              }
-          }
-      }
-      return true;
-      }
-      
+        for(int r = 0 ; r<Constants.BOARD_SIZE; ++r) {
+            for(int c=0; c<Constants.BOARD_SIZE; ++c){
+                if (getBoardCell(r,c) == Constants.BLANK){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
 }
 
