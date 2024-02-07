@@ -5,6 +5,7 @@ public class EventLoop {
     State state = new State();
     UI ui = new UI();
     int row, col;
+    int rowOrCol;
 
     public static void main(String[] args){
         EventLoop eventLoop = new EventLoop();
@@ -38,8 +39,10 @@ public class EventLoop {
                 row = ui.getMoveRow(state.getWhoseMove(), state.getXName(), state.getOName() );
                 col = ui.getMoveCol(state.getWhoseMove(), state.getXName(), state.getOName());
                 if (ui.isLegalMove(state, row, col)) {
+                    //ui.printInvalidRowOrColumn();
                     state.setGameState(Constants.MAKE_MOVE);
                 }
+               
 
             } else if (gameState == Constants.MAKE_MOVE) {
                 ui.printMove(state, row, col);
@@ -72,15 +75,18 @@ public class EventLoop {
 
             } else if (gameState == Constants.X_WINS) {
                 ui.printWinner(state);
+                ui.printBoard(state);
                 state.setGameState(Constants.GAME_OVER);
 
             } else if (gameState == Constants.O_WINS) {
                 ui.printWinner(state);
+                ui.printBoard(state);
                 state.setGameState(Constants.GAME_OVER);
 
             } else if (gameState == Constants.GAME_OVER) {
                 if (ui.startNewGame()) {
-
+                    
+                    
                     state.setGameState(Constants.STANDBY);
                 } else {
                     state.setGameState(Constants.QUIT_PROGRAM);
@@ -89,4 +95,3 @@ public class EventLoop {
         }
     }
 }
-
